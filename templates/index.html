@@ -3,6 +3,12 @@
   <title>Slim Note</title>
 </head>
 <body>
+  <form action="notes" method="POST">
+    <input type="text" name="title" />
+    <textarea name="content"></textarea>
+    <button type="submit">Send</button>
+  </form>
+
   <ul>
     {% for note in notes %}
       <li>{{note}}</li>

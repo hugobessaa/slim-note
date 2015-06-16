@@ -27,5 +27,39 @@ $app->get('/', function() use ($app) {
   $app->render('index.html');
 });
 
+$app->post('/notes', function() use ($app) {
+  // notes object
+  $note = array(
+    'title' => $_POST['title'],  
+    'content' => $_POST['content']
+  );
+
+  // insert query
+  $result = run_query('INSERT INTO notes (title, content) '.
+            'VALUES (\''.$note['title'].'\', \''.$note['content'].'\')');
+
+  // echo var_dump($result);
+  // response 303 for success and 500 for error
+  $app->response->redirect('/', $result ? 303 : 500);
+});
+
+
+// Simple mysql query function
+// FIXME: no SQL injection protection
+function run_query($query) {
+  $connection = mysqli_connect('localhost', 'root', 'root', 'slim-note');
+
+  if (mysqli_connect_errno()) {
+    echo 'connect error';
+    return false;
+  }
+
+  $result = mysqli_query($connection, $query);
+  echo 'result'.$result;
+  mysqli_close($connection);
+
+  return $result;
+}
+
 // Run
 $app->run();
