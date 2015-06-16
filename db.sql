@@ -1,0 +1,18 @@
+CREATE TABLE notes (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	title VARCHAR(100),
+	content VARCHAR(1000)
+);
+
+CREATE TABLE tags (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	title VARCHAR(50)
+);
+
+CREATE TABLE tag_note (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	note_id INT,
+	tag_id INT,
+	FOREIGN KEY (note_id) REFERENCES notes(id),
+	FOREIGN KEY (tag_id) REFERENCES tags(id)
+);
