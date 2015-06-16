@@ -1,3 +1,13 @@
 # slim note
 
 simple note app for a college homework
+
+## TODO
+
+- [x] bootstrap app
+- [ ] db sql script
+- [ ] create note
+- [ ] list all notes
+- [ ] list all tags
+- [ ] list all notes with a tag
+
