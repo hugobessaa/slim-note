@@ -6,7 +6,7 @@ simple note app for a college homework
 
 - [x] bootstrap app
 - [x] db sql script
-- [ ] create note
+- [x] create note
 - [ ] list all notes
 - [ ] list all tags
 - [ ] list all notes with a tag
