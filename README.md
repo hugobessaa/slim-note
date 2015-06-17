@@ -8,7 +8,7 @@ simple note app for a college homework
 - [x] db sql script
 - [x] create note
 - [x] list all notes
-- [ ] list all tags
+- [x] list all tags
 - [ ] list all notes with a tag
 - [ ] styles
 
