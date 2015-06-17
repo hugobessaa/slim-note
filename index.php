@@ -19,7 +19,7 @@ $view->parserOptions = array(
 
 // Routes
 $app->get('/', function() use ($app) {
-  $notes = array('yo', 'now', 'wat');
+  $notes = get_notes();
   $app->view->setData(array(
     'notes' => $notes
   ));
@@ -78,6 +78,12 @@ function run_query($query) {
 /**
  * Note helpers
  */
+
+function get_notes() {
+  $notes_select = run_query('SELECT * FROM notes ORDER BY id DESC');
+
+  return $notes_select->fetch_all(MYSQLI_ASSOC);
+}
 
 function get_last_note_id() {
   $last_note_query = run_query('SELECT id FROM notes ORDER BY id DESC LIMIT 1');

@@ -16,9 +16,11 @@
     <button type="submit">Send</button>
   </form>
 
+  <hr>
+
   <ul>
     {% for note in notes %}
-      <li>{{note}}</li>
+      <li>title: {{note.title}} id: {{note.id}}</li>
     {% endfor %}
   </ul>
 </body>
