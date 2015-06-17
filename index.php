@@ -55,6 +55,9 @@ $app->post('/notes', function() use ($app) {
   $app->response->redirect('/', $result ? 303 : 500);
 });
 
+/**
+ * General helpers
+ */
 
 // Simple mysql query function
 // FIXME: no SQL injection protection
@@ -72,6 +75,10 @@ function run_query($query) {
   return $result;
 }
 
+/**
+ * Note helpers
+ */
+
 function get_last_note_id() {
   $last_note_query = run_query('SELECT id FROM notes ORDER BY id DESC LIMIT 1');
   if ($last_note_query) {
@@ -81,6 +88,10 @@ function get_last_note_id() {
 
   return false;
 }
+
+/**
+ * Tags helpers
+ */
 
 function insert_tags($tags, $note_id) {
   $sanitized_tags = sanitize_tags($tags);
