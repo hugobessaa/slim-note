@@ -16,7 +16,7 @@
     <textarea id="notes-content" name="content">{{note.content}}</textarea>
 
     <label for="notes-tags">Tags:</label>
-    <input id="notes-tags" type="text" name="tags">
+    <input id="notes-tags" type="text" name="tags" value="{% for tag in note.tags %}{{tag.title}}, {% endfor %}">
 
     <button type="submit">Update</button>
   </form>

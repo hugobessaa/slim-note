@@ -23,6 +23,11 @@
     {% for note in notes %}
       <li>
         <a href="/notes/{{note.id}}">{{note.title}}</a>
+        <small>
+          {% for tag in note.tags %}
+            <a href="/tags/{{tag.id}}">{{tag.title}}</a>
+          {% endfor %}
+        </small>
       </li>
     {% endfor %}
   </ul>
