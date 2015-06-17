@@ -41,19 +41,8 @@ $app->post('/notes', function() use ($app) {
   );
 
   // insert query
-  $note_insert = run_query('INSERT INTO notes (title, content) '.
-            'VALUES (\''.$note['title'].'\', \''.$note['content'].'\')');
+  $result = insert_note($note);
 
-  // insert successful
-  if ($note_insert) {
-    $note_id = get_last_note_id();
-
-    // insert tags
-    $tags_insert = insert_tags($note['tags'], $note_id);
-    $result = $tags_insert;
-  }
-
-  // echo var_dump($result);
   // response 303 for success and 500 for error
   $app->response->redirect('/', $result ? 303 : 500);
 });
@@ -170,6 +159,26 @@ function get_last_note_id() {
   }
 
   return false;
+}
+
+function insert_note($note) {
+  $result = false;
+
+  $note_insert = run_query(
+    'INSERT INTO notes (title, content) '.
+    'VALUES (\''.$note['title'].'\', \''.$note['content'].'\')'
+  );
+
+  // insert successful
+  if ($note_insert) {
+    $note_id = get_last_note_id();
+
+    // insert tags
+    $tags_insert = insert_tags($note['tags'], $note_id);
+    $result = $tags_insert;
+  }
+
+  return $result;
 }
 
 function update_note($note) {
