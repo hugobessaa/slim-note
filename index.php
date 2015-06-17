@@ -182,13 +182,18 @@ function insert_note($note) {
 }
 
 function update_note($note) {
+  $result = false;
   $note_update = run_query(
     'UPDATE notes '.
     'SET title=\''.$note['title'].'\', content=\''.$note['content'].'\' '.
     'WHERE id=\''.$note['id'].'\''
   );
 
-  return $note_update;
+  if ($note_update) {
+    $result = insert_tags($note['tags'], $note['id']);
+  }
+
+  return $result;
 }
 
 function inject_tag_info($note) {
