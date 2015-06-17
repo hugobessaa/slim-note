@@ -135,7 +135,7 @@ function get_note_by_id($note_id) {
 function get_notes_by_tag_id($tag_id) {
   $notes_by_tag_id_select = run_query(
     'SELECT notes.* FROM notes '.
-    'LEFT JOIN tag_note '.
+    'INNER JOIN tag_note '.
     'ON notes.id=tag_note.note_id '.
     'WHERE tag_note.tag_id=\''.$tag_id.'\' '.
     'ORDER BY notes.id DESC'
@@ -225,7 +225,7 @@ function get_tag_by_id($tag_id) {
 function get_tags_by_note_id($note_id) {
   $tags_by_note_id = run_query(
     'SELECT tags.* FROM tags '.
-    'LEFT JOIN tag_note '.
+    'INNER JOIN tag_note '.
     'ON tags.id=tag_note.tag_id '.
     'WHERE tag_note.note_id=\''.$note_id.'\''
   );
