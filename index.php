@@ -118,7 +118,9 @@ function run_query($query) {
  */
 
 function get_notes() {
-  $notes_select = run_query('SELECT * FROM notes ORDER BY id DESC');
+  $notes_select = run_query(
+    'SELECT * FROM notes ORDER BY id DESC'
+  );
   if (!$notes_select) { return false; }
 
   $notes = $notes_select->fetch_all(MYSQLI_ASSOC);
@@ -159,7 +161,9 @@ function get_notes_by_tag_id($tag_id) {
 }
 
 function get_last_note_id() {
-  $last_note_query = run_query('SELECT id FROM notes ORDER BY id DESC LIMIT 1');
+  $last_note_query = run_query(
+    'SELECT id FROM notes ORDER BY id DESC LIMIT 1'
+  );
   if ($last_note_query) {
     $last_note = $last_note_query->fetch_array();
     return $last_note['id'];
@@ -190,7 +194,9 @@ function inject_tag_info($note) {
  */
 
 function get_tags() {
-  $tags_select = run_query('SELECT * FROM tags ORDER BY id DESC');
+  $tags_select = run_query(
+    'SELECT * FROM tags ORDER BY id DESC'
+  );
 
   return $tags_select->fetch_all(MYSQLI_ASSOC);
 }
@@ -246,7 +252,9 @@ function sanitize_tags($tags) {
 
 function get_tag_id($tag) {
   $tag_id = false;
-  $tag_select = run_query('SELECT id FROM tags WHERE title = \''.$tag.'\'');
+  $tag_select = run_query(
+    'SELECT id FROM tags WHERE title = \''.$tag.'\''
+  );
 
   // tag exists
   if ($tag_select->num_rows > 0) {
@@ -254,7 +262,9 @@ function get_tag_id($tag) {
 
   // tag must be created
   } else {
-    $tag_insert = run_query('INSERT INTO tags (title) VALUES (\''.$tag.'\')');
+    $tag_insert = run_query(
+      'INSERT INTO tags (title) VALUES (\''.$tag.'\')'
+    );
     if (!$tag_insert) { return false; }
 
     $tag_id = get_tag_id($tag);
@@ -265,14 +275,18 @@ function get_tag_id($tag) {
 
 function insert_tag_note($tag_id, $note_id) {
   // does this relationship already exists?
-  $tag_note_count = run_query('SELECT COUNT(*) AS count FROM tag_note '.
-                              'WHERE tag_id=\''.$tag_id.'\' AND note_id=\''.$note_id.'\'');
+  $tag_note_count = run_query(
+    'SELECT COUNT(*) AS count FROM tag_note '.
+    'WHERE tag_id=\''.$tag_id.'\' AND note_id=\''.$note_id.'\''
+  );
   $count = (int) $tag_note_count->fetch_array()['count'];
   if ($count > 0) { return false; }
 
   // insert new tag <-> note relationship
-  $tag_note_insert = run_query('INSERT INTO tag_note (tag_id, note_id) '.
-                               'VALUES (\''.$tag_id.'\', \''.$note_id.'\')');
+  $tag_note_insert = run_query(
+    'INSERT INTO tag_note (tag_id, note_id) '.
+    'VALUES (\''.$tag_id.'\', \''.$note_id.'\')'
+  );
   return $tag_note_insert;
 }
 
