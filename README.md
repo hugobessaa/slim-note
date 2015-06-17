@@ -10,5 +10,6 @@ simple note app for a college homework
 - [x] list all notes
 - [x] list all tags
 - [x] list all notes with a tag
+- [ ] note page (with edit)
 - [ ] styles
 
