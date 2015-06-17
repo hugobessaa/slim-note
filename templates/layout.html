@@ -2,16 +2,19 @@
 <html>
 <head>
   <title>Slim Note</title>
+  <link rel="stylesheet" href="/css/furtive.min.css">
+  <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-  <header>
-    <h1><a href="/">Slim Note</a></h1>
-  </header>
+  <div class="root">
+    <header class="header">
+      <h1><a href="/">Slim Note</a></h1>
+    </header>
 
-  <div>
-    {% block content %}{% endblock %}
+    <div class="content">
+      {% block content %}{% endblock %}
+    </div>
   </div>
-
 </body>
 </html>
  

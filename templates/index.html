@@ -1,7 +1,41 @@
 {% extends "layout.html" %}
 
 {% block content %}
+  <div class="grd">
+    <div class="grd-row">
+      
+      <div class="grd-row-col-4-6">
+        <h3>Notes</h3>
+        <ul>
+          {% for note in notes %}
+          <li>
+            <a href="/notes/{{note.id}}">{{note.title}}</a>
+            <small>
+              {% for tag in note.tags %}
+              <a href="/tags/{{tag.id}}">{{tag.title}}</a>
+              {% endfor %}
+            </small>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="grd-row-col-2-6">
+        <h3>tags:</h3>
+        <ul>
+          {% for tag in tags %}
+          <li>
+            <a href="/tags/{{tag.id}}">{{tag.title}}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
   <form action="notes" method="POST">
+    <h3>Add note</h3>
     <label for="notes-title">Title:</label>
     <input  id="notes-title" type="text" name="title">
 
@@ -11,32 +45,6 @@
     <label for="notes-tags">Tags:</label>
     <input id="notes-tags" type="text" name="tags">
 
-    <button type="submit">Send</button>
+    <button type="submit">Add</button>
   </form>
-
-  <hr>
-
-  <h3>Notes:</h3>
-  <ul>
-    {% for note in notes %}
-      <li>
-        <a href="/notes/{{note.id}}">{{note.title}}</a>
-        <small>
-          {% for tag in note.tags %}
-            <a href="/tags/{{tag.id}}">{{tag.title}}</a>
-          {% endfor %}
-        </small>
-      </li>
-    {% endfor %}
-  </ul>
-
-
-  <h3>tags:</h3>
-  <ul>
-    {% for tag in tags %}
-      <li>
-        <a href="/tags/{{tag.id}}">{{tag.title}}</a>
-      </li>
-    {% endfor %}
-  </ul>
 {% endblock %}
