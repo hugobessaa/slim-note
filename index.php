@@ -20,8 +20,11 @@ $view->parserOptions = array(
 // Routes
 $app->get('/', function() use ($app) {
   $notes = get_notes();
+  $tags = get_tags();
+
   $app->view->setData(array(
-    'notes' => $notes
+    'notes' => $notes,
+    'tags'  => $tags
   ));
 
   $app->render('index.html');
@@ -98,6 +101,12 @@ function get_last_note_id() {
 /**
  * Tags helpers
  */
+
+function get_tags() {
+  $tags_select = run_query('SELECT * FROM tags ORDER BY id DESC');
+
+  return $tags_select->fetch_all(MYSQLI_ASSOC);
+}
 
 function insert_tags($tags, $note_id) {
   $sanitized_tags = sanitize_tags($tags);

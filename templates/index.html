@@ -18,9 +18,18 @@
 
   <hr>
 
+  <h2>notes:</h2>
   <ul>
     {% for note in notes %}
       <li>title: {{note.title}} id: {{note.id}}</li>
+    {% endfor %}
+  </ul>
+
+
+  <h2>tags:</h2>
+  <ul>
+    {% for tag in tags %}
+      <li>title: {{tag.title}} id: {{tag.id}}</li>
     {% endfor %}
   </ul>
 </body>
