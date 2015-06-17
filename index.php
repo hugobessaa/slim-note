@@ -58,6 +58,29 @@ $app->post('/notes', function() use ($app) {
   $app->response->redirect('/', $result ? 303 : 500);
 });
 
+$app->get('/notes/:id', function($note_id) use ($app) {
+  $note = get_note_by_id($note_id);
+
+  $app->view->setData(array(
+    'note' => $note
+  ));
+
+  $app->render('notes.html');
+});
+
+$app->put('/notes/:id', function($note_id) use ($app) {
+  $note = array(
+    'id'      => $_POST['id'],
+    'title'   => $_POST['title'],  
+    'content' => $_POST['content'],
+    'tags'    => explode(',', $_POST['tags'])
+  );
+
+  $result = update_note($note);
+
+  $app->response->redirect('/', $result ? 303 : 500);
+});
+
 $app->get('/tags/:id', function($tag_id) use ($app) {
   $tag = get_tag_by_id($tag_id);
   $notes = get_notes_by_tag_id($tag_id);
@@ -100,6 +123,18 @@ function get_notes() {
   return $notes_select->fetch_all(MYSQLI_ASSOC);
 }
 
+function get_note_by_id($note_id) {
+  $note_by_id_select = run_query(
+    'SELECT * FROM notes '.
+    'WHERE id=\''.$note_id.'\' '.
+    'LIMIT 1'
+  );
+
+  if (!$note_by_id_select) { return false; }
+
+  return $note_by_id_select->fetch_array(MYSQLI_ASSOC);
+}
+
 function get_notes_by_tag_id($tag_id) {
   $notes_by_tag_id_select = run_query(
     'SELECT * FROM notes '.
@@ -122,6 +157,16 @@ function get_last_note_id() {
   }
 
   return false;
+}
+
+function update_note($note) {
+  $note_update = run_query(
+    'UPDATE notes '.
+    'SET title=\''.$note['title'].'\', content=\''.$note['content'].'\' '.
+    'WHERE id=\''.$note['id'].'\''
+  );
+
+  return $note_update;
 }
 
 /**

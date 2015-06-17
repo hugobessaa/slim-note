@@ -21,7 +21,9 @@
   <h2>notes:</h2>
   <ul>
     {% for note in notes %}
-      <li>title: {{note.title}} id: {{note.id}}</li>
+      <li>
+        <a href="/notes/{{note.id}}">{{note.title}}</a>
+      </li>
     {% endfor %}
   </ul>
 
