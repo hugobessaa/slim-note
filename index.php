@@ -58,6 +58,18 @@ $app->post('/notes', function() use ($app) {
   $app->response->redirect('/', $result ? 303 : 500);
 });
 
+$app->get('/tags/:id', function($tag_id) use ($app) {
+  $tag = get_tag_by_id($tag_id);
+  $notes = get_notes_by_tag_id($tag_id);
+
+  $app->view->setData(array(
+    'tag'   => $tag,
+    'notes' => $notes
+  ));
+
+  $app->render('tags.html');
+});
+
 /**
  * General helpers
  */
@@ -88,6 +100,20 @@ function get_notes() {
   return $notes_select->fetch_all(MYSQLI_ASSOC);
 }
 
+function get_notes_by_tag_id($tag_id) {
+  $notes_by_tag_id_select = run_query(
+    'SELECT * FROM notes '.
+    'LEFT JOIN tag_note '.
+    'ON notes.id=tag_note.note_id '.
+    'WHERE tag_note.tag_id=\''.$tag_id.'\' '.
+    'ORDER BY notes.id DESC'
+  );
+
+  if (!$notes_by_tag_id_select) { return false; }
+
+  return $notes_by_tag_id_select->fetch_all(MYSQLI_ASSOC);
+}
+
 function get_last_note_id() {
   $last_note_query = run_query('SELECT id FROM notes ORDER BY id DESC LIMIT 1');
   if ($last_note_query) {
@@ -106,6 +132,18 @@ function get_tags() {
   $tags_select = run_query('SELECT * FROM tags ORDER BY id DESC');
 
   return $tags_select->fetch_all(MYSQLI_ASSOC);
+}
+
+function get_tag_by_id($tag_id) {
+  $tag_by_id_select = run_query(
+    'SELECT * FROM tags '.
+    'WHERE id=\''.$tag_id.'\' '.
+    'LIMIT 1'
+  );
+
+  if (!$tag_by_id_select) { return false; }
+
+  return $tag_by_id_select->fetch_array(MYSQLI_ASSOC);
 }
 
 function insert_tags($tags, $note_id) {

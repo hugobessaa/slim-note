@@ -1,0 +1,16 @@
+<html>
+<head>
+  <title>Slim Note</title>
+</head>
+<body>
+  <a href="/">home</a>
+  <h1>{{tag.title}}</h1>
+
+  <h2>notes:</h2>
+  <ul>
+    {% for note in notes %}
+      <li>title: {{note.title}} id: {{note.id}}</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

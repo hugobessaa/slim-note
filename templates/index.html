@@ -29,7 +29,9 @@
   <h2>tags:</h2>
   <ul>
     {% for tag in tags %}
-      <li>title: {{tag.title}} id: {{tag.id}}</li>
+      <li>
+        <a href="/tags/{{tag.id}}">{{tag.title}}</a>
+      </li>
     {% endfor %}
   </ul>
 </body>
