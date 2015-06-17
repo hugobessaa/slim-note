@@ -1,9 +1,6 @@
-<html>
-<head>
-  <title>Slim Note</title>
-</head>
-<body>
-  <a href="/">home</a>
+{% extends "layout.html" %}
+
+{% block content %}
   <form action="/notes/{{note.id}}" method="POST">
     <input type="hidden" name="_METHOD" value="PUT">
 
@@ -20,5 +17,4 @@
 
     <button type="submit">Update</button>
   </form>
-</body>
-</html>
+{% endblock %}

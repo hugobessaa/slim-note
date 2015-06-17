@@ -1,8 +1,6 @@
-<html>
-<head>
-  <title>Slim Note</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block content %}
   <form action="notes" method="POST">
     <label for="notes-title">Title:</label>
     <input  id="notes-title" type="text" name="title">
@@ -18,7 +16,7 @@
 
   <hr>
 
-  <h2>notes:</h2>
+  <h3>Notes:</h3>
   <ul>
     {% for note in notes %}
       <li>
@@ -33,7 +31,7 @@
   </ul>
 
 
-  <h2>tags:</h2>
+  <h3>tags:</h3>
   <ul>
     {% for tag in tags %}
       <li>
@@ -41,5 +39,4 @@
       </li>
     {% endfor %}
   </ul>
-</body>
-</html>
+{% endblock %}
