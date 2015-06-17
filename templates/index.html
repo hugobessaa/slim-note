@@ -4,8 +4,15 @@
 </head>
 <body>
   <form action="notes" method="POST">
-    <input type="text" name="title" />
-    <textarea name="content"></textarea>
+    <label for="notes-title">Title:</label>
+    <input  id="notes-title" type="text" name="title">
+
+    <label    for="notes-content">Content:</label>
+    <textarea id="notes-content" name="content"></textarea>
+
+    <label for="notes-tags">Tags:</label>
+    <input id="notes-tags" type="text" name="tags">
+
     <button type="submit">Send</button>
   </form>
 
